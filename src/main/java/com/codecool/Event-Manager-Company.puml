@@ -1,0 +1,61 @@
+@startuml
+class EventCompany{
+-employees:List<Employee>
+-events:List<Event>
++processEvent():void
+}
+class Clock{
+-currentTime:LocalDateTime
++advanceTime():void
+}
+
+abstract class Employee{
+-id:UUID
+
+}
+class Manager extends Employee{
+}
+abstract class Helper extends Employee{
+-isOnBreak:boolean
++takeBreak(clock: Clock,startEvent :LocalDateTime):void
+}
+class SmokerHelper extends Helper{
+}
+class CoffeeDrinkHelper extends Helper{
+}
+abstract class Event{
+-chiefOrganizer:Manager
+-organizers:List<Manager>
+-helpers:List<Helper>
+-ORGANIZERS_NUMBER = 2
+-HELPERS_NUMBER = 10
+-duration:int
++serve(clock: Clock):void
+}
+class CocktailParty extends Event{
+-duration=5
+}
+class Wedding extends Event{
+-duration=8
+}
+class Conference extends Event{
+-duration=10
+}
+EventCompany-->Employee
+EventCompany-->Event
+EventCompany-->Clock
+Event-->Helper
+Event-->Manager
+Event-->Clock
+Helper-->Clock
+CocktailParty-->Clock
+CocktailParty-->Helper
+CocktailParty-->Manager
+Conference-->Manager
+Conference-->Helper
+Conference-->Clock
+Wedding-->Helper
+Wedding-->Manager
+Wedding-->Clock
+
+@enduml
